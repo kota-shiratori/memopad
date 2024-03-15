@@ -1,14 +1,31 @@
 <template>
-    <div><input type="text"></div>
-    <div><textarea></textarea></div>
+    <div><input type="text" v-model="title"></div>
+    <div><textarea v-model="content"></textarea></div>
     <div class="center">
-        <button>保存</button>
+        <button @click="save">保存</button>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'MemoForm'
+    name: 'MemoForm',
+    data() {
+        return {
+            title: '',
+            content: '',
+        }
+    },
+    methods: {
+        save() {
+            let memo = {
+                title: this.title,
+                content: this.content
+            }
+
+            this.$store.commit('save', memo)
+            this.$router.push('/')
+        }
+    }
 }
 </script>
 
