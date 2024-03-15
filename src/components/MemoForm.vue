@@ -3,16 +3,20 @@
     <div><textarea v-model="content"></textarea></div>
     <div class="center">
         <button @click="save">保存</button>
+        <button @click="remove" v-if="memo.id">削除</button>
     </div>
 </template>
 
 <script>
 export default {
     name: 'MemoForm',
+    props: [
+        'memo'
+    ],
     data() {
         return {
-            title: '',
-            content: '',
+            title: this.memo.title,
+            content: this.memo.content,
         }
     },
     methods: {
@@ -22,7 +26,15 @@ export default {
                 content: this.content
             }
 
+            if(this.memo.id) {
+                memo.id = this.memo.id
+            }
+
             this.$store.commit('save', memo)
+            this.$router.push('/')
+        },
+        remove() {
+            this.$store.commit('delete',this.memo.id)
             this.$router.push('/')
         }
     }
