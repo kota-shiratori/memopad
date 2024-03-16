@@ -7,7 +7,7 @@
         </RouterLink>
       </li>
     </ul>
-    <p v-else>メモはありません</p>
+    <p class="no-memo" v-else>メモはありません。<router-link to="/new">メモを追加</router-link></p>
   </div>
 </template>
 
@@ -29,6 +29,25 @@ li a {
   text-decoration: none;
   display: block;
   width: 100%;
+}
+
+li a:hover {
+  color: #42b983;
+}
+
+.no-memo a {
+  background-color: #42b983;
+  border-radius: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: .5em 1em;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  width: fit-content;
+  text-decoration: none;
 }
 </style>
 

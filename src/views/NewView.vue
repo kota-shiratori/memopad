@@ -1,5 +1,5 @@
 <template>
-    <MemoForm :memo=""/>
+    <MemoForm :memo="emptyObject" />
 </template>
 
 <script>
@@ -8,6 +8,11 @@ export default {
     name: 'NewView',
     components: {
         MemoForm
+    },
+    data() {
+        return {
+            emptyObject: {}
+        }
     }
 }
 </script>

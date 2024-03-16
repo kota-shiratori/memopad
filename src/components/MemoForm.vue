@@ -1,9 +1,9 @@
 <template>
-    <div><input type="text" v-model="title"></div>
-    <div><textarea v-model="content"></textarea></div>
+    <div><input type="text" v-model="title" placeholder="タイトル"></div>
+    <div><textarea v-model="content" placeholder="内容"></textarea></div>
     <div class="center">
-        <button @click="save">保存</button>
-        <button @click="remove" v-if="memo.id">削除</button>
+        <button class="save-button" @click="save">保存</button>
+        <button class="delete-button" @click="remove" v-if="memo.id">削除</button>
     </div>
 </template>
 
@@ -15,18 +15,24 @@ export default {
     ],
     data() {
         return {
-            title: this.memo.title,
-            content: this.memo.content,
+            title: this.memo?.title || '',
+            content: this.memo?.content || '',
         }
     },
     methods: {
         save() {
+
+            if (!this.title.trim() || !this.content.trim()) {
+                alert('タイトルと内容は必須です。');
+                return;
+            }
+
             let memo = {
                 title: this.title,
                 content: this.content
             }
 
-            if(this.memo.id) {
+            if (this.memo.id) {
                 memo.id = this.memo.id
             }
 
@@ -34,7 +40,7 @@ export default {
             this.$router.push('/')
         },
         remove() {
-            this.$store.commit('delete',this.memo.id)
+            this.$store.commit('delete', this.memo.id)
             this.$router.push('/')
         }
     }
@@ -48,11 +54,17 @@ div {
 
 input[type=text] {
     width: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+    border: solid 2px #42b983;
 }
 
 textarea {
     width: 100%;
     height: 30em;
+    padding: 1em;
+    box-sizing: border-box;
+    border: solid 2px #42b983;
 }
 
 button {
@@ -61,6 +73,31 @@ button {
 }
 
 .center {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.save-button,
+.delete-button {
+    background-color: #42b983;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.save-button {
+    background-color: #42b983;
+}
+
+.delete-button {
+    background-color: #f08080;
 }
 </style>
